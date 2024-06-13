@@ -27,6 +27,6 @@ const eventSchema = new Schema(
   }
 );
 
-const User = model("User", userSchema);
+const Event = model("Event", eventSchema);
 
-module.exports = User;
+module.exports = Event;
