@@ -17,8 +17,7 @@ const eventSchema = new Schema(
       lowercase: true,
     },
     img:    {
-        type: Buffer,
-        contentType: String
+        type: String
     },
     user: { type: Schema.Types.ObjectId, ref: "User" },
   },
