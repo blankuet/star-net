@@ -1,5 +1,6 @@
 // We reuse this import in order to have access to the `body` property in requests
 const express = require("express");
+const hbs = require('hbs')
 
 // ℹ️ Responsible for the messages you see in the terminal as requests are coming in
 // https://www.npmjs.com/package/morgan
@@ -50,6 +51,9 @@ module.exports = (app) => {
   app.use(
     favicon(path.join(__dirname, "..", "public", "images", "favicon.ico"))
   );
+
+  hbs.registerPartials(__dirname + '/views/partials');
+  
 
   // ℹ️ Middleware that adds a "req.session" information and later to check that you are who you say you are 😅
   app.use(

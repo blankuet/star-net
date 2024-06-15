@@ -10,6 +10,9 @@
 
 <body>
   {{>navbar}}
+  {{#if error}}
+    <div class="alert">{{error}}</div>
+  {{/if}}
   {{{body}}}
   {{>footer}}
 
