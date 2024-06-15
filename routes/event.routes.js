@@ -6,6 +6,8 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 router.get(`/`, isLoggedIn, (req, res) => {
     Event.find({ user: req.session.currentUser._id })
     .then((data) => {
-        res.render("event/list", { events: data });
+        res.render("events/eventList", { events: data });
     });
 });
+
+module.exports = router;
