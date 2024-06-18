@@ -21,4 +21,33 @@ router.post(`/create`, isLoggedIn, (req, res)=> {
         res.redirect("/events/");
     });
 });
+
+router.get(`/:id`, isLoggedIn, (req, res) => {
+    Event.findById(req.params.id)
+    .then((data) => {
+        res.render(`events/event-detais`, { event: data });
+    });
+});
+
+router.post(`/:id/delete`, isLoggedIn, (req, res) => {
+    Event.findByIdAndDelete(req.params.id).then(() => res.redirect(`/events`));
+});
+
+router.get(`/edit/:id`, isLoggedIn, (req, res) => {
+    Promise.all([
+        Event.findById(req.params.id),
+        User.find()
+    ])
+
+    .then(([event, user]) => {
+        res.render(`events/edit-event`, { event, user });
+    });
+});
+
+router.post(`/:id/edit`, isLoggedIn, (req, res) => {
+    const { name, description } = req.body;
+    Event.findByIdAndUpdate(req.params.id, { name, description }, { new: true })
+    .then(() => res.redirect(`/events/${req.params.id}`));
+});
+
 module.exports = router;

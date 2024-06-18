@@ -1,0 +1,10 @@
+<h1>{{event.name}}</h1>
+<p>{{event.description}}</p>
+<img src="{{event.img}}" alt="{{event.name}}">
+<h3>User: {{user.alias}}</h3>
+
+<form action="/events/{{event._id}}/delete" method="post">
+  <button type="submit">Delete Event</button>
+</form>
+
+<a href="/events/edit/{{event._id}}">Modify Event</a>

@@ -2,7 +2,7 @@
 <ul>
     {{#each events}}
     <li>
-       <h2>{{this.name}}</h2> 
+       <h2><a href="/events/{{this._id}}">{{this.name}}</a> </h2> 
        <p>{{this.description}}</p>
     </li>
     {{/each}}
