@@ -13,4 +13,13 @@ router.get(`/`, isLoggedIn, consoleLog, (req, res) => {
         .catch((err) => console.log(err));
 });
 
+router.get(`/`, isLoggedIn, consoleLog, (req, res) => {
+    User.find()
+        .then((data) => {
+            console.log(data);
+            res.render("users/profile", { users: data, events: data });
+        })
+        .catch((err) => console.log(err));
+});
+
 module.exports = router;
