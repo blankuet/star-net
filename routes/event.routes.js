@@ -23,9 +23,9 @@ router.post(`/create`, isLoggedIn, (req, res)=> {
 });
 
 router.get(`/:id`, isLoggedIn, (req, res) => {
-    Event.findById(req.params.id)
+    Event.findById(req.params.id).populate(`user`)
     .then((data) => {
-        res.render(`events/event-detais`, { event: data });
+        res.render(`events/event-details`, { event: data });
     });
 });
 
