@@ -2,10 +2,6 @@
   <h2>Log In</h2>
   <form action="/auth/login" method="POST">
 
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
-
     <label> Email
       <input type="email" name="email" placeholder="Your email" />
     </label>
@@ -18,7 +14,7 @@
 
 
     {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
+    <p class="error">{{errorMessage}}</p>
     {{/if}}
   </form>
 </div>

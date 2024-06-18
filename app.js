@@ -39,6 +39,8 @@ app.use("/events", eventRoutes);
 const userRoutes = require(`./routes/users.routes`);
 app.use("/users", userRoutes);
 
+
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

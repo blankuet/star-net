@@ -6,11 +6,20 @@ const consoleLog = require("../middleware/consoleLog");
 
 router.get(`/`, isLoggedIn, consoleLog, (req, res) => {
     User.find()
-    .then((data) => {
-        console.log(data);
-        res.render("users/users", { users: data });
-    })
-    .catch((err) => console.log(err));
+        .then((data) => {
+            console.log(data);
+            res.render("users/users", { users: data });
+        })
+        .catch((err) => console.log(err));
+});
+
+router.get(`/profile`, isLoggedIn, consoleLog, (req, res) => {
+    User.find()
+        .then((data) => {
+            console.log(data);
+            res.render("users/profile", { users: data });
+        })
+        .catch((err) => console.log(err));
 });
 
 module.exports = router;
