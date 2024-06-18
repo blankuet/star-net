@@ -40,14 +40,14 @@ router.get(`/edit/:id`, isLoggedIn, (req, res) => {
     ])
 
     .then(([event, user]) => {
-        re.render(`events/edit-event`, { event, user });
+        res.render(`events/edit-event`, { event, user });
     });
 });
 
 router.post(`/:id/edit`, isLoggedIn, (req, res) => {
     const { name, description } = req.body;
     Event.findByIdAndUpdate(req.params.id, { name, description }, { new: true })
-    .then(() => res.redirect(`events/${req.params.id}`));
+    .then(() => res.redirect(`/events/${req.params.id}`));
 });
 
 module.exports = router;

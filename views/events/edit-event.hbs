@@ -1,0 +1,10 @@
+<h2>Edit Event</h2>
+<form action="/events/{{event._id}}/edit" method="post">
+    <label>Name:</label>
+    <input type="text" name="name" value="{{event.name}}" required>
+    <label>Description:</label>
+    <input type="text" name="description" value="{{event.description}}" required>
+    <label>Image:</label>
+    <input type="text" name="image" value="{{event.img}}">
+    <button type="submit">Update Event</button>
+</form>
