@@ -1,18 +1,4 @@
-<h1>Profile</h1>
+<h1>Profile {{this.alias}} </h1>
 
-<h2>Users Events</h2>
-<ul>
-    {{#each events}}
-    <li>
-        <h2>{{this.name}}</h2>
-        <p>{{this.description}}</p>
-    </li>
-    {{/each}}
-</ul>
 
-<h2>Users</h2>
-<ul>
-    {{#each users}}
-    <li>{{this.username}}</li>
-    {{/each}}
-</ul>
+<a href="/events/eventList">Your envents list</a>

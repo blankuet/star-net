@@ -13,11 +13,11 @@ router.get(`/`, isLoggedIn, consoleLog, (req, res) => {
         .catch((err) => console.log(err));
 });
 
-router.get(`/`, isLoggedIn, consoleLog, (req, res) => {
+router.get(`/profile`, isLoggedIn, consoleLog, (req, res) => {
     User.find()
         .then((data) => {
             console.log(data);
-            res.render("users/profile", { users: data, events: data });
+            res.render("users/profile", { users: data });
         })
         .catch((err) => console.log(err));
 });
