@@ -1,4 +1,14 @@
 <h1>Hello {{users.alias}} </h1>
 
 
-<a href="/events/eventList">Your event list</a>
+<p> {{user.username}} </p>
+<p> {{user.alias}} </p>
+<p> {{user.email}} </p>
+
+<h3>User: {{user.alias}}</h3>
+
+<form action="/users/{{user._id}}/delete" method="post">
+    <button type="submit">Delete User</button>
+</form>
+
+<a href="/users/edit-profile/{{user._id}}">Modify User</a>

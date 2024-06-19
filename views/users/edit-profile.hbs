@@ -1,0 +1,10 @@
+<h2>Edit User</h2>
+<form action="/users/{{user._id}}/edit" method="post">
+    <label>Alias:</label>
+    <input type="text" name="alias" value="{{user.alias}}" required>
+    <label>Email:</label>
+    <input type="text" name="email" value="{{user.email}}" required>
+    <label>Name:</label>
+    <input type="text" name="username" value="{{user.username}}">
+    <button type="submit">Update User</button>
+</form>
