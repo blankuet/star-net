@@ -6,13 +6,13 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 router.get(`/`, isLoggedIn, (req, res) => {
     Event.find({ user: req.session.currentUser._id }) //{ user: req.session.currentUser._id } esto va dentro del parentesis del find
     .then((data) => {
-        console.log(data)
-        res.render("events/eventList", { events: data });
+        res.render("events/eventList", { events: data, isAuthenticated: !!req.session.currentUser });
     });
 });
+
 router.get(`/create`, isLoggedIn, async (req, res) => {
     const users = await User.find();
-    res.render("events/create", { users });
+    res.render("events/create", { users, isAuthenticated: !!req.session.currentUser });
 });
 router.post(`/create`, isLoggedIn, (req, res)=> {
     const user = req.session.currentUser._id;
@@ -25,7 +25,7 @@ router.post(`/create`, isLoggedIn, (req, res)=> {
 router.get(`/:id`, isLoggedIn, (req, res) => {
     Event.findById(req.params.id).populate(`user`)
     .then((data) => {
-        res.render(`events/event-details`, { event: data });
+        res.render(`events/event-details`, { event: data, isAuthenticated: !!req.session.currentUser });
     });
 });
 
@@ -40,7 +40,7 @@ router.get(`/edit/:id`, isLoggedIn, (req, res) => {
     ])
 
     .then(([event, user]) => {
-        res.render(`events/edit-event`, { event, user });
+        res.render(`events/edit-event`, { event, user, isAuthenticated: !!req.session.currentUser });
     });
 });
 
