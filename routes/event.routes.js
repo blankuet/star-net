@@ -19,8 +19,9 @@ router.get(`/create`, isLoggedIn, async (req, res) => {
 });
 router.post(`/create`, isLoggedIn, fileUploader.single('event-image'), (req, res)=> {
     const user = req.session.currentUser._id;
+    const img = req.file.path;
     const { name, description } = req.body;
-    Event.create({name, description, user}).then((data) => {
+    Event.create({name, description, img, user}).then((data) => {
         res.redirect("/events/");
     });
 });
