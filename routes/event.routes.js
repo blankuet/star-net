@@ -26,6 +26,15 @@ router.post(`/create`, isLoggedIn, fileUploader.single('event-image'), (req, res
     });
 });
 
+/* all events route */
+router.get(`/all-events`, isLoggedIn, (req, res) => {
+    Event.find()
+    .then((data) => {
+        res.render("events/all-events", { events: data, isAuthenticated: !!req.session.currentUser });
+    });
+});
+/* END */
+
 router.get(`/:id`, isLoggedIn, (req, res) => {
     Event.findById(req.params.id).populate(`user`)
     .then((data) => {
