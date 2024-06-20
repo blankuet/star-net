@@ -1,17 +1,44 @@
 <h1>Hello {{user.alias}} </h1>
 
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="User Name">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.username}}</h5>
+                    <a href="/edit-profile/{{user._id}}" class="btn btn-primary">Modify User Name</a>
+                    <form action="/users/{{user._id}}/delete" method="post">
+                        <button class="btn btn-danger" type="submit">Delete User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-<p> Name: </p>
-<h5>{{user.username}}</h5>
-<p> Alias: </p>
-<h5>{{user.alias}}</h5>
-<p> Email: </p>
-<h5>{{user.email}}</h5>
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="Alias">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.alias}}</h5>
+                    <a href="/edit-profile/{{user._id}}" class="btn btn-primary">Modify Alias</a>
+                    <form action="/users/{{user._id}}/delete" method="post">
+                        <button class="btn btn-danger" type="submit">Delete User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-<h3>User: {{user.alias}}</h3>
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="Email">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.email}}</h5>
+                    <a href="/edit-profile/{{user._id}}" class="btn btn-primary">Modify Email</a>
+                    <form action="/users/{{user._id}}/delete" method="post">
+                        <button class="btn btn-danger" type="submit">Delete User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-<form action="/users/{{user._id}}/delete" method="post">
-    <button type="submit">Delete User</button>
-</form>
-
-<a href="/edit-profile/{{user._id}}">Modify User</a>
+    </div>
