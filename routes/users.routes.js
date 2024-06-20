@@ -31,12 +31,13 @@ router.post(`/:id/delete`, isLoggedIn, (req, res) => {
         .catch(err => console.log(err));
 });
 
-router.get('/edit/:id', isLoggedIn, (req, res) => {
+router.get(`/edit/:id`, isLoggedIn, (req, res) => {
+
     User.findById(req.params.id)
-        .then(user => {
-            res.render('users/edit-profile', { user, isAuthenticated: !!req.session.currentUser });
-        })
-        .catch(err => console.log(err));
+
+        .then((user) => {
+            res.render(`users/edit-profile`, { user, isAuthenticated: !!req.session.currentUser });
+        });
 });
 
 router.post(`/:id/edit`, isLoggedIn, (req, res) => {
