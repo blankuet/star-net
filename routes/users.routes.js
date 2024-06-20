@@ -31,12 +31,18 @@ router.post(`/:id/delete`, isLoggedIn, (req, res) => {
         .catch(err => console.log(err));
 });
 
-
+router.get('/edit/:id', isLoggedIn, (req, res) => {
+    User.findById(req.params.id)
+        .then(user => {
+            res.render('users/edit-profile', { user, isAuthenticated: !!req.session.currentUser });
+        })
+        .catch(err => console.log(err));
+});
 
 router.post(`/:id/edit`, isLoggedIn, (req, res) => {
     const { alias, email, username } = req.body;
     User.findByIdAndUpdate(req.params.id, { alias, email, username }, { new: true })
-        .then(() => res.redirect(`/users/edit-profile`))
+        .then(() => res.redirect(`/users/profile`))
         .catch(err => console.log(err));
 });
 
