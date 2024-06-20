@@ -3,6 +3,9 @@ const router = express.Router();
 const Event = require(`../models/Event.model`);
 const User = require(`../models/User.model`);
 const isLoggedIn = require("../middleware/isLoggedIn");
+const fileUploader = require('../config/cloudinary.config');
+
+
 router.get(`/`, isLoggedIn, (req, res) => {
     Event.find({ user: req.session.currentUser._id }) //{ user: req.session.currentUser._id } esto va dentro del parentesis del find
     .then((data) => {
@@ -14,10 +17,11 @@ router.get(`/create`, isLoggedIn, async (req, res) => {
     const users = await User.find();
     res.render("events/create", { users, isAuthenticated: !!req.session.currentUser });
 });
-router.post(`/create`, isLoggedIn, (req, res)=> {
+router.post(`/create`, isLoggedIn, fileUploader.single('event-image'), (req, res)=> {
     const user = req.session.currentUser._id;
+    const img = req.file.path;
     const { name, description } = req.body;
-    Event.create({name, description, user}).then((data) => {
+    Event.create({name, description, img, user}).then((data) => {
         res.redirect("/events/");
     });
 });
