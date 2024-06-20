@@ -1,14 +1,18 @@
-<h1>Create new event</h1>
-<form action="/events/create" method="post" enctype="multipart/form-data">
-<label for="name">Name
-    <input type="text" name="name" id="name">
-</label>
-<label for="description">Description
-    <input type="text" name="description" id="descrition">
-</label>
-<label for="image">Image
-    <input type="file" name="event-image" class="form-control-file">
-    <input type="text" name="existingImage" hidden value="{{img}}">
-</label>
-<button type="submit">Create Event</button>
-</form>
+<h1 class="text-center">Create new event</h1>
+<div class="row d-flex justify-content-center ">
+  <div class="col-lg-4 d-flex justify-content-center align-items-center">
+    <div class="card bg-dark text-white p-3">
+      <form action="/events/create" method="post" enctype="multipart/form-data">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" name="name" id="name" class="form-control mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" name="description" id="description" class="form-control mb-3">
+        <label for="image" class="form-label">Image</label>
+        <input type="file" name="event-image" class="form-control-file mb-3">
+        <input type="text" name="existingImage" hidden value="{{img}}">
+        <br>
+        <button type="submit" class="btn btn-primary align-self-center">Create Event</button>
+      </form>
+    </div>
+  </div>
+</div>
