@@ -8,7 +8,7 @@ router.get(`/`, isLoggedIn, consoleLog, (req, res) => {
     User.find()
         .then((data) => {
             console.log(data);
-            res.render("users/users", { users: data, isAuthenticated: !!req.session.currentUser });
+            res.render("users/users", { user: data, isAuthenticated: !!req.session.currentUser });
         })
         .catch((err) => console.log(err));
 });
