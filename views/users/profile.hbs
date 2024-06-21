@@ -1,4 +1,44 @@
-<h1>Hello {{users.alias}} </h1>
+<h1>Hello {{user.alias}} </h1>
 
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="User Name">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.username}}</h5>
+                    <a href="/users/edit/{{user._id}}" class="btn btn-primary">Modify User Name</a>
+                    <form action="/users/{{user._id}}/delete" method="post">
+                        <button class="btn btn-danger" type="submit">Delete User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-<a href="/events/eventList">Your event list</a>
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="Alias">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.alias}}</h5>
+                    <a href="/users/edit/{{user._id}}" class="btn btn-primary">Modify Alias</a>
+                    <form action="/users/{{user._id}}/delete" method="post">
+                        <button class="btn btn-danger" type="submit">Delete User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="Email">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.email}}</h5>
+                    <a href="/users/edit/{{user._id}}" class="btn btn-primary">Modify Email</a>
+                    <form action="/users/{{user._id}}/delete" method="post">
+                        <button class="btn btn-danger" type="submit">Delete User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
