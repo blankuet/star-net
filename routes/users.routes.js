@@ -14,7 +14,7 @@ router.get(`/users`, isLoggedIn, (req, res) => {
         .catch((err) => console.log(err));
 });
 
-// View profile all users
+
 router.get('/profile', isLoggedIn, consoleLog, (req, res) => {
     const currentUser = req.session.currentUser;
 
@@ -22,6 +22,18 @@ router.get('/profile', isLoggedIn, consoleLog, (req, res) => {
         .then((data) => {
             console.log(data);
             res.render("users/profile", { user: data, isAuthenticated: !!req.session.currentUser });
+        })
+        .catch((err) => console.log(err));
+});
+
+// View profile all users
+router.get('/:id/profile', isLoggedIn, consoleLog, (req, res) => {
+
+
+    User.findById()
+        .then((data) => {
+            console.log(data);
+            res.render("users/user-view", { user: data, isAuthenticated: !!req.session.currentUser });
         })
         .catch((err) => console.log(err));
 });

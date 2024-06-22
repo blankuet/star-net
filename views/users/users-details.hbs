@@ -4,7 +4,9 @@
             <h1 class="card-title">{{user.name}}</h1>
             <p class="card-text">{{user.alias}}</p>
             <img src="{{user.img}}" width="500" height="500" class="img-fluid" alt="{{user.name}}">
-            <h3 class="mt-3">User: <span class="text-light">{{event.user.alias}}</span></h3>
+            <h3 class="mt-3">User:{{user.alias}} <span class="text-light"><a href="/users/{{this._id}}/profile">eventos
+                        de
+                        {{user.alias}}</a></span></h3>
         </div>
     </div>
 </div>
