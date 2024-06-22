@@ -11,7 +11,12 @@ const comentSchema = new Schema(
     text: {
         type: String,
         required: true
-    }
+    },
+    likes: [
+      {
+        type: Schema.Types.ObjectId, ref: "User"
+      }
+    ]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
