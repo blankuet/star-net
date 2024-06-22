@@ -5,40 +5,16 @@
         <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
             <div class="card" style="width: 18rem;">
                 <img src="..." class="card-img-top" alt="User Name">
-                <div class="card-body">
-                    <h5 class="card-title">{{user.username}}</h5>
-                    <a href="/users/edit/{{user._id}}" class="btn btn-primary">Modify User Name</a>
-                    <form action="/users/{{user._id}}/delete" method="post">
-                        <button class="btn btn-danger" type="submit">Delete User</button>
-                    </form>
+                <div class="card-img-top" alt="User Image">
+                    <div class="card-body">
+                        <h5 class="card-title">User name: {{user.username}}</h5>
+                        <h5 class="card-title">Alias: {{user.alias}}</h5>
+                        <h5 class="card-title">Email: {{user.email}}</h5>
+                        <a href="/users/edit/{{user._id}}" class="btn btn-primary">Modify User Name</a>
+                        <form action="/users/{{user._id}}/delete" method="post" style="display:inline;">
+                            <button class="btn btn-danger" type="submit">Delete User</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="Alias">
-                <div class="card-body">
-                    <h5 class="card-title">{{user.alias}}</h5>
-                    <a href="/users/edit/{{user._id}}" class="btn btn-primary">Modify Alias</a>
-                    <form action="/users/{{user._id}}/delete" method="post">
-                        <button class="btn btn-danger" type="submit">Delete User</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="Email">
-                <div class="card-body">
-                    <h5 class="card-title">{{user.email}}</h5>
-                    <a href="/users/edit/{{user._id}}" class="btn btn-primary">Modify Email</a>
-                    <form action="/users/{{user._id}}/delete" method="post">
-                        <button class="btn btn-danger" type="submit">Delete User</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    </div>

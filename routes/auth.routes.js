@@ -14,18 +14,21 @@ const User = require("../models/User.model");
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
-
+const fileUploader = require('../config/cloudinary.config');
 // GET /auth/signup
 router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, (req, res) => {
+router.post("/signup", isLoggedOut, fileUploader.single('user-image'), (req, res) => {
+  console.log(req.file)
+  const img = req.file.path;
   const { username, alias, email, password } = req.body;
 
+
   // Check that username, email, and password are provided
-  if (username === "" || alias === "" || email === "" || password === "") {
+  if (username === "" || alias === "" || email === "" || password === "" || img === "") {
     res.status(400).render("auth/signup", {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
@@ -61,7 +64,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username, alias, email, password: hashedPassword });
+      return User.create({ username, alias, email, img, password: hashedPassword });
     })
     .then((user) => {
       res.redirect("/auth/login");
