@@ -40,6 +40,15 @@
         </ul>
       </li>
     </ul>
+    {{else}}
+    <ul class="navbar-nav ms-auto"> <!-- This will place the 'Sign Up' on the right side -->
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/signup">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/auth/login">Log in</a>
+      </li>
+    </ul>
     {{/if}}
   </div>
 </nav>

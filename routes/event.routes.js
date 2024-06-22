@@ -7,7 +7,7 @@ const fileUploader = require('../config/cloudinary.config');
 
 
 router.get(`/`, isLoggedIn, (req, res) => {
-    Event.find({ user: req.session.currentUser._id }) //{ user: req.session.currentUser._id } esto va dentro del parentesis del find
+    Event.find({ user: req.session.currentUser._id })
     .then((data) => {
         res.render("events/eventList", { events: data, isAuthenticated: !!req.session.currentUser });
     });
@@ -33,7 +33,16 @@ router.get(`/all-events`, isLoggedIn, (req, res) => {
         res.render("events/all-events", { events: data, isAuthenticated: !!req.session.currentUser });
     });
 });
-/* END */
+/* END */ 
+
+//event details all events:
+
+router.get(`/view/:id`, isLoggedIn, (req,res) => {
+    Event.findById(req.params.id).populate('user')
+    .then((data) => {
+        res.render(`events/event-view`, { event: data, isAuthenticated: !!req.session.currentUser });
+    });
+});
 
 router.get(`/:id`, isLoggedIn, (req, res) => {
     Event.findById(req.params.id).populate(`user`)
