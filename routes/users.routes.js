@@ -20,7 +20,7 @@ router.get('/profile', isLoggedIn, consoleLog, (req, res) => {
 
     User.findById(currentUser._id)
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             res.render("users/profile", { user: data, isAuthenticated: !!req.session.currentUser });
         })
         .catch((err) => console.log(err));
@@ -30,9 +30,9 @@ router.get('/profile', isLoggedIn, consoleLog, (req, res) => {
 router.get('/:id/profile', isLoggedIn, consoleLog, (req, res) => {
 
 
-    User.findById()
+    User.findById(req.params.id)
         .then((data) => {
-            console.log(data);
+            console.log('User profile: ' + data);
             res.render("users/user-view", { user: data, isAuthenticated: !!req.session.currentUser });
         })
         .catch((err) => console.log(err));

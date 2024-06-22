@@ -35,13 +35,13 @@
 <div class="row d-flex justify-content-center ">
   <div class="col-lg-4 d-flex justify-content-center align-items-center">
     <div class="card bg-dark text-white p-3">
-      <form id="form" action="/auth/signup" method="post">
+      <form id="form" action="/auth/signup" method="post" enctype="multipart/form-data">
         <label for="name" class="form-label">User Name</label>
         <input type="text" name="name" placeholder="Your user name" class="form-control mb-3">
         <label for="name" class="form-label">Alias</label>
-        <input type="text" name="name" placeholder="Your Alias" class="form-control mb-3">
+        <input type="text" name="alias" placeholder="Your Alias" class="form-control mb-3">
         <label for="name" class="form-label">Email</label>
-        <input type="text" name="name" placeholder="Your Email" class="form-control mb-3">
+        <input type="text" name="email" placeholder="Your Email" class="form-control mb-3">
         <label for="name" class="form-label">Password</label>
         <input type="password" name="password" placeholder="Your password" class="form-control mb-3">
         <label for="image" class="form-label">Image</label>
