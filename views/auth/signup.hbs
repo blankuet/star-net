@@ -1,4 +1,4 @@
-<div id="form">
+<!-- <div id="form">
   <h2>Sign Up</h2>
   <form action="/auth/signup" method="POST">
 
@@ -18,6 +18,8 @@
       <input type="password" name="password" placeholder="Your password" />
     </label>
 
+    <label for="image" class="form-label">Image</label>
+
     <button type="submit">Sign Up</button>
 
 
@@ -25,4 +27,34 @@
     <p class="error">{{errorMessage}}</p>
     {{/if}}
   </form>
+</div>
+-->
+
+
+<h1 class="text-center">Register User</h1>
+<div class="row d-flex justify-content-center ">
+  <div class="col-lg-4 d-flex justify-content-center align-items-center">
+    <div class="card bg-dark text-white p-3">
+      <form id="form" action="/auth/signup" method="post">
+        <label for="name" class="form-label">User Name</label>
+        <input type="text" name="name" placeholder="Your user name" class="form-control mb-3">
+        <label for="name" class="form-label">Alias</label>
+        <input type="text" name="name" placeholder="Your Alias" class="form-control mb-3">
+        <label for="name" class="form-label">Email</label>
+        <input type="text" name="name" placeholder="Your Email" class="form-control mb-3">
+        <label for="name" class="form-label">Password</label>
+        <input type="password" name="password" placeholder="Your password" class="form-control mb-3">
+        <label for="image" class="form-label">Image</label>
+        <input type="file" name="user-image" class="form-control-file mb-3">
+        <input type="text" name="existingImage" hidden value="{{img}}">
+        <br>
+        <button type="submit" class="btn btn-primary align-self-center">Create User</button>
+
+
+        {{#if errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/if}}
+      </form>
+    </div>
+  </div>
 </div>

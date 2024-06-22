@@ -3,16 +3,18 @@ const router = express.Router();
 const User = require(`../models/User.model`);
 const isLoggedIn = require("../middleware/isLoggedIn");
 const consoleLog = require("../middleware/consoleLog");
+const fileUploader = require('../config/cloudinary.config');
 
-router.get(`/`, isLoggedIn, consoleLog, (req, res) => {
+// User List
+router.get(`/users`, isLoggedIn, (req, res) => {
     User.find()
         .then((data) => {
-            console.log(data);
-            res.render("users/users", { user: data, isAuthenticated: !!req.session.currentUser });
+            res.render("users/users", { users: data, isAuthenticated: !!req.session.currentUser });
         })
         .catch((err) => console.log(err));
 });
 
+// View profile all users
 router.get('/profile', isLoggedIn, consoleLog, (req, res) => {
     const currentUser = req.session.currentUser;
 
@@ -25,11 +27,12 @@ router.get('/profile', isLoggedIn, consoleLog, (req, res) => {
 });
 
 
-
+// Delete User in view profile
 router.post(`/:id/delete`, isLoggedIn, (req, res) => {
     User.findByIdAndDelete(req.params.id).then(() => res.redirect(`auth/signup`))
         .catch(err => console.log(err));
 });
+
 
 router.get(`/edit/:id`, isLoggedIn, (req, res) => {
 
@@ -40,11 +43,13 @@ router.get(`/edit/:id`, isLoggedIn, (req, res) => {
         });
 });
 
+// Edit User in view Profile
 router.post(`/:id/edit`, isLoggedIn, (req, res) => {
-    const { alias, email, username } = req.body;
-    User.findByIdAndUpdate(req.params.id, { alias, email, username }, { new: true })
+    const { username, alias, email, } = req.body;
+    User.findByIdAndUpdate(req.params.id, { username, alias, email }, { new: true })
         .then(() => res.redirect(`/users/profile`))
         .catch(err => console.log(err));
 });
+
 
 module.exports = router;

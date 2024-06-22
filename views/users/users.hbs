@@ -1,7 +1,17 @@
 <h1>Users List</h1>
 
-<ul>
+<div class="row">
     {{#each users}}
-    <li>{{this.username}}</li>
+    <div class="col-lg-4 col-md-6 mb-3">
+        <div class="card h-100" style="background-color: #000;">
+            {{#if this.img.length}}
+            <img src="{{this.img}}" class="card-img-top" alt="Event Image" style="object-fit: cover; height: 200px;">
+            {{/if}}
+            <div class="card-body" style="color: #fff;">
+                <h5 class="card-title" style="color: #fff;">{{this.alias}}</h5>
+                <a href="/users/{{this._id}}/users-details/" class="btn btn-primary">See more</a>
+            </div>
+        </div>
+    </div>
     {{/each}}
-</ul>
+</div>
