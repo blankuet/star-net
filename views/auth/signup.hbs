@@ -1,41 +1,11 @@
-{{!-- <div id="form">
-  <h2>Sign Up</h2>
-  <form action="/auth/signup" method="POST">
-
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
-
-    <label> Alias
-      <input type="text" name="alias" placeholder="Your alias" />
-    </label>
-
-    <label> Email
-      <input type="email" name="email" placeholder="Your email" />
-    </label>
-
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
-
-    <button type="submit">Sign Up</button>
-
-
-    {{#if errorMessage}}
-    <p class="error">{{errorMessage}}</p>
-    {{/if}}
-  </form>
-</div> --}}
-
-
 <div id="signup-form" class="row d-flex justify-content-center align-items-center" style="height: 100vh;">
   <div class="col-lg-4">
     <div class="card bg-dark text-white p-3">
 <img src="/images/star-net-18-6-2024.png" alt="Logo" style="max-width: 300px; object-fit: contain; display: block; margin: 0 auto;">
       <h2 class="text-center mb-4">Create your free account</h2>
-      <form action="/auth/signup" method="POST" class="d-flex flex-column align-items-center">
+      <form action="/auth/signup" method="POST" class="d-flex flex-column align-items-center" enctype="multipart/form-data>
         <label class="text-center"> Username
-      <input type="text" name="username" class="form-control mb-3 text-center" placeholder="Your username" />
+      <input type="text" name="name" class="form-control mb-3 text-center" placeholder="Your username" />
     </label>
 
     <label class="text-center"> Alias
@@ -49,6 +19,8 @@
     <label class="text-center"> Password
       <input type="password" name="password" class="form-control mb-3 text-center" placeholder="Your password" />
     </label>
+    <input type="file" name="user-image" class="form-control-file mb-3">
+        <input type="text" name="existingImage" hidden value="{{img}}">
         <br>
         <button type="submit" class="btn btn-primary">Sign up</button>
         {{#if errorMessage}}
