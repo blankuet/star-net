@@ -33,7 +33,7 @@ const eventSchema = new Schema(
         type: Schema.Types.ObjectId, ref: "User"
       }
     ],
-    comments: { type: Schema.Types.ObjectId, ref: "Coment"},
+    comment: { type: Schema.Types.ObjectId, ref: "Coment"},
     date: {
       type: Date,
       default: Date.now
