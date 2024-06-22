@@ -3,5 +3,7 @@
 
 <a class="btn btn-primary" href="auth/signup">Sign Up</a>
 <a class="btn btn-primary" href="auth/login">Log In</a>
+{{#if isAuthenticated}}
 <a class="btn btn-danger" href="auth/logout">Log Out</a>
 <a class="btn btn-primary" href="users/profile">Profile</a>
+{{/if}}
