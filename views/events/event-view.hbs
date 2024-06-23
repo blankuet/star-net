@@ -6,6 +6,28 @@
             <img src="{{event.img}}" width="500" height="500" class="img-fluid" alt="{{event.name}}">
             <h3 class="mt-3">Created by: <span class="text-light">{{event.user.alias}}</span></h3>
         </div>
+         <form action="/events/{{event._id}}/likes" method="post">
+                <button type="submit">
+                    Like Event ({{event.likes.length}})
+                </button>
+            </form>
+            <form action="/events/{{event._id}}/comment" method="post">
+                <textarea name="text" placeholder="Write your comment here"></textarea>
+                <button type="submit">Add Comment</button>
+            </form>
+           <ul>
+            {{#each event.comments}}
+            <li>
+                <p>{{this.text}}</p>
+                <p>{{this.user.alias}}</p> 
+                <form action="/comments/{{this.:id}}/likes" method="post">
+                    <button type="submit">
+                        Like Comment ({{this.likes.length}})
+                    </button>
+                </form>
+            </li>
+            {{/each}}
+           </ul>
     </div>
 </div>
 

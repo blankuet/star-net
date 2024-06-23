@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
-const comentSchema = new Schema(
+const commentSchema = new Schema(
   {
     User: {
         type: Schema.Types.ObjectId,
@@ -10,7 +10,17 @@ const comentSchema = new Schema(
     },
     text: {
         type: String,
-        required: true
+        required: true,
+        trim: true
+    },
+    event: {
+      type: Schema.Types.ObjectId,
+      ref: "Event",
+      required: true
+    },
+    date: {
+      type: Date,
+      default: Date.now
     },
     likes: [
       {
@@ -24,6 +34,6 @@ const comentSchema = new Schema(
   }
 );
 
-const Coment = model("Coment", comentSchema);
+const Comment = model("Comment", commentSchema);
 
-module.exports = Coment;
+module.exports = Comment;
