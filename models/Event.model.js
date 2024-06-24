@@ -7,22 +7,25 @@ const eventSchema = new Schema(
       type: String,
       required: true,
       unique: false,
-      trim: true,
+      trim: true, //Elimina los espacios en blanco al principio y al final
     },
     description: {
       type: String,
       required: true,
       unique: false,
       trim: true,
-      lowercase: true,
     },
     img:    {
-        type: String
+        type: String,
+        required: false
     },
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    user: { type: Schema.Types.ObjectId, ref: "User",
+      required: false
+    },
+    
     isPrivate: {
       type: Boolean,
-      default: false
+      default: false //Al estar en false, el evento, por defecto, es público
     },
     location: {
       type: String,
@@ -33,10 +36,10 @@ const eventSchema = new Schema(
         type: Schema.Types.ObjectId, ref: "User"
       }
     ],
-    comment: { type: Schema.Types.ObjectId, ref: "Coment"},
+    comments: { type: Schema.Types.ObjectId, ref: "Comment"},
     date: {
       type: Date,
-      default: Date.now
+      default: Date.now //Esto es para que la fecha y hora sean las actuales, por defecto
     }
   },
   {

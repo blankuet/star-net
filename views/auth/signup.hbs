@@ -12,6 +12,7 @@
 
         <label class="text-center"> Alias
           <input type="text" name="alias" class="form-control mb-3 text-center" placeholder="Your alias" />
+          <p>This is the name that will be seen by other users</p>
         </label>
 
         <label class="text-center"> Email
@@ -21,7 +22,12 @@
         <label class="text-center"> Password
           <input type="password" name="password" class="form-control mb-3 text-center" placeholder="Your password" />
         </label>
-        <input type="file" name="user-image" class="form-control-file mb-3">
+        <label for="image" class="form-label">Image</label>
+        <div class="custom-file mb-3">
+          <input type="file" name="user-image" id="user-image" class="custom-file-input">
+          <label class="btn btn-purple rounded-pill text-white" for="user-image">Choose File</label>
+        </div>
+        <!--<input type="file" name="user-image" class="form-control-file mb-3">-->
         <input type="text" name="existingImage" hidden value="{{img}}">
         <br>
         <button type="submit" class="btn btn-primary">Sign up</button>
