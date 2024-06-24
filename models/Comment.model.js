@@ -16,7 +16,7 @@ const commentSchema = new Schema(
     event: {
       type: Schema.Types.ObjectId,
       ref: "Event",
-      required: true
+      //required: true
     },
     date: {
       type: Date,

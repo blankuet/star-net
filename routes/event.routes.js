@@ -45,6 +45,8 @@ router.get(`/view/:id`, isLoggedIn, (req,res) => {
     });
 });
 
+//event details all events:
+
 router.get(`/:id`, isLoggedIn, (req, res) => {
     Event.findById(req.params.id).populate(`user`)
     .then((data) => {
@@ -89,19 +91,24 @@ router.post(`/:id/comment`, isLoggedIn, (req, res) => {
 
 //Route to like an event:
 
-router.post(`/_id/likes`, isLoggedIn, (req, res) => {
+router.post(`/:id/likes`, isLoggedIn, (req, res) => {
     const eventId = req.params._id;
     const userId = req.session.currentUser._id;
     
     Event.findByIdAndUpdate(eventId).
     then(event => {
+        if (!event) {
+            throw new Error(`Event not found`);
+        }
         if (!event.likes.includes(userId)) {
             event.likes.push(userId);
             return event.save();
         } else {
-            res.redirect(`/view/${eventId}`);
-            throw new Error(`Event already liked by this user`);
+            event.likes.push(userId);
+            return event.save();
         }
+        /*res.redirect(`/view/${eventId}`);
+        throw new Error(`Event already liked by this user`);   (Esto para poner después de else)*/
     })
     .then(() => {
         res.redirect(`/view/${eventId}`);
@@ -110,22 +117,27 @@ router.post(`/_id/likes`, isLoggedIn, (req, res) => {
 
 //Route to like a comment:
 
-router.post(`/comments/:_id/likes`, isLoggedIn, (req, res) => {
+router.post(`/comments/:id/likes`, isLoggedIn, (req, res) => {
     const commentId = req.params._id;
     const userId = req.session.currentUser._id;
 
     Comment.findById(commentId)
     .then(comment => {
+        if (!comment) {
+            throw new Error(`Comment not found`); 
+            }
         if (!comment.likes.includes(userId)) {
             comment.likes.push(userId);
             return comment.save();
         } else {
-            res.redirect(`back`)	
-            throw new Error(`Comment already liked by this user`);
+            comment.likes.pull(userId);
+            return comment.save();
         }
+        /*res.redirect(`back`)	
+            throw new Error(`Comment already liked by this user`);   (Esto para poner después de else)*/
     })
     .then(()=> {
-        res.redirect(`back`);
+        res.redirect(`/view/${req.params.id}`);
     });
 });
 
