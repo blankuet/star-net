@@ -29,6 +29,30 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    address: {
+      type: String,
+      require: false,
+    },
+    website: {
+      type: String,
+      require: false,
+    },
+    github: {
+      type: String,
+      require: false,
+    },
+    twitter: {
+      type: String,
+      require: false,
+    },
+    instagram: {
+      type: String,
+      require: false,
+    },
+    facebook: {
+      type: String,
+      require: false,
+    },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

@@ -1,11 +1,40 @@
-<h2>Edit User</h2>
-<form action="/users/{{user._id}}/edit-profile" method="post">
-    <label>Name:</label>
-    <input type="text" name="username" value="{{user.username}}">
-    <label>Alias:</label>
-    <input type="text" name="alias" value="{{user.alias}}" required>
-    <label>Email:</label>
-    <input type="text" name="email" value="{{user.email}}" required>
-
-    <button type="submit">Update User</button>
-</form>
+<div class="container rounded bg-dark mt-5 mb-5">
+    <div class=" row">
+        <div class="card text-white bg-dark mb-3">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+                    width="150px" src="{{user.img}}"><span class="font-weight-bold">{{user.alias}}</span></div>
+        </div>
+        <div>
+            <div class="">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div>
+                    <form action="/users/{{user._id}}/edit" method="post">
+                        <div class="col-md-6"><label>User Name</label><input type="text" name="username"
+                                class="form-control" value="{{user.username}}" required>
+                        </div>
+                        <div class="col-md-6"><label>Alias</label><input type="text" name="alias" class="form-control"
+                                placeholder="{{user.alias}}" value="{{user.alias}}" required></div>
+                        <div class="col-md-6"><label>Email</label><input type="text" name="email" class="form-control"
+                                placeholder="{{user.email}}" value="{{user.email}}" required></div>
+                        <div class="col-md-6"><label>Address</label><input type="text" name="address"
+                                class="form-control" placeholder="{{user.address}}" value="{{user.address}}"></div>
+                        <div class="col-md-6"><label>Website</label><input type="text" name="website"
+                                class="form-control" placeholder="{{user.website}}" value="{{user.website}}"></div>
+                        <div class="col-md-6"><label>Github</label><input type="text" name="github" class="form-control"
+                                placeholder="{{user.github}}" value="{{user.github}}"></div>
+                        <div class="col-md-6"><label>Twitter</label><input type="text" name="twitter"
+                                class="form-control" placeholder="{{user.twitter}}" value="{{user.twitter}}"></div>
+                        <div class="col-md-6"><label>Instagram</label><input type="text" name="instagram"
+                                class="form-control" placeholder="{{user.instagram}}" value="{{user.instagram}}"></div>
+                        <div class="col-md-6"><label>facebook</label><input type="text" name="facebook"
+                                class="form-control" placeholder="{{user.facebook}}" value="{{user.facebook}}"></div>
+                </div>
+                <div class="mt-5 text-center"><button type="submit" class="btn btn-primary profile-button">Save
+                        Profile</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
