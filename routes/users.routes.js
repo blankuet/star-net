@@ -41,7 +41,7 @@ router.get('/:id/profile', isLoggedIn, consoleLog, (req, res) => {
 
 // Delete User in view profile
 router.post(`/:id/delete`, isLoggedIn, (req, res) => {
-    User.findByIdAndDelete(req.params.id).then(() => res.redirect(`auth/signup`))
+    User.findByIdAndDelete(req.params.id).then(() => res.redirect(`/`))
         .catch(err => console.log(err));
 });
 
@@ -57,8 +57,9 @@ router.get(`/edit/:id`, isLoggedIn, (req, res) => {
 
 // Edit User in view Profile
 router.post(`/:id/edit`, isLoggedIn, (req, res) => {
-    const { username, alias, email, } = req.body;
-    User.findByIdAndUpdate(req.params.id, { username, alias, email }, { new: true })
+    console.log(req.body)
+    const { username, alias, email, address, website, github, twitter, instagram, facebook } = req.body;
+    User.findByIdAndUpdate(req.params.id, { username, alias, email, address, website, github, twitter, instagram, facebook }, { new: true })
         .then(() => res.redirect(`/users/profile`))
         .catch(err => console.log(err));
 });
