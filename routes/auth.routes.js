@@ -25,7 +25,7 @@ router.post("/signup", isLoggedOut, fileUploader.single('user-image'), (req, res
   console.log(req.file)
   const img = req.file.path;
   const { username, alias, email, password } = req.body;
-
+ 
 
   // Check that username, email, and password are provided
   if (username === "" || alias.length === 0 || email === "" || password === "" || img === "") {

@@ -38,8 +38,15 @@ const eventSchema = new Schema(
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment"}],
     date: {
       type: Date,
-      default: Date.now //Esto es para que la fecha y hora sean las actuales, por defecto
-    }
+      default: Date.now, //Esto es para que la fecha y hora sean las actuales, por defecto
+      required: true,
+      min: '01-01-2024',
+      max: '01-01-3024'
+      },
+    startTime: {
+      type: Date,
+      required: false,
+    },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

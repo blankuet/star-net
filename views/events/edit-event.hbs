@@ -13,12 +13,70 @@
 <div class="row d-flex justify-content-center">
   <div class="col-lg-4 d-flex justify-content-center align-items-center">
     <div class="card bg-dark text-white p-3">
-      <form action="/events/{{event._id}}/edit" method="post">
+
+      <form
+        action="/events/{{event._id}}/edit"
+        method="post"
+        {{!-- enctype="multipart/form-data" --}}
+      >
         <label for="name" class="form-label">Name</label>
-        <input type="text" name="name" id="name" value="{{event.name}}" class="form-control mb-3 bg-dark text-white" required>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value="{{event.name}}"
+          class="form-control mb-3 bg-dark text-white"
+          required
+        />
         <label for="description" class="form-label">Description</label>
-        <input type="text" name="description" id="description" value="{{event.description}}" class="form-control mb-3 bg-dark text-white" required>
-        <button type="submit" class="btn btn-primary align-self-center">Update Event</button>
+
+        <input
+          type="text"
+          name="description"
+          id="description"
+          value="{{event.description}}"
+          class="form-control mb-3 bg-dark text-white"
+          required
+        />
+
+        <label for="location" class="form-label">Location</label>
+        <input
+          type="text"
+          name="location"
+          id="location"
+          value="{{event.location}}"
+          class="form-control mb-3 bg-dark text-white"
+          required
+        />
+
+        <label for="date" class="form-label">Date</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          value="{{date}}"
+          class="form-control mb-3 bg-dark text-white"
+        />
+        <label for="startTime" class="form-label">Time</label>
+        <input
+          type="time"
+          id="startTime"
+          name="startTime"
+          value="{{time}}"
+          class="form-control mb-3 bg-dark text-white"
+        />
+{{!-- 
+        <label for="image" class="form-label">Image</label>
+        <input
+          type="file"
+          name="image"
+          id="image"
+          class="form-control mb-3 bg-dark text-white"
+        /> --}}
+        <br />
+        <button type="submit" class="btn btn-primary align-self-center">Update
+          Event</button>
+
       </form>
     </div>
   </div>
