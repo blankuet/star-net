@@ -26,6 +26,8 @@ const projectName = "star-net";
 
 app.locals.appTitle = `${capitalize(projectName)}`;
 
+
+
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);

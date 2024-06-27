@@ -5,6 +5,7 @@ const User = require(`../models/User.model`);
 const Comment = require(`../models/Comment.model`);
 const isLoggedIn = require("../middleware/isLoggedIn");
 const fileUploader = require("../config/cloudinary.config");
+const authString = btoa(`e6b9d448-3a3a-4cbb-b89d-f410c6b37537:6c70edcb386607c9c306b227d0b2a5f978ce9030913a67470e7c0332c339ecbbb48d3f4e6af630fdfe320e6ca6039b07c157d5fc4e0090bcbd97368458d47988b9bf8afb98b33837e6edb69a3fe592080d597dfa458050e7b867f6287d3fa3a76c2ea10b7f9f6bff5c0b19509aa1967f`);
 
 router.get(`/`, isLoggedIn, (req, res) => {
   Event.find({ user: req.session.currentUser._id }).then((data) => {
@@ -17,20 +18,43 @@ router.get(`/`, isLoggedIn, (req, res) => {
 
 router.get(`/create`, isLoggedIn, async (req, res) => {
   const users = await User.find();
+  const response = await fetch('https://api.astronomyapi.com/api/v2/bodies/events/:sun',
+    {
+      headers: {
+        Authorization: `Basic ${authString}`,
+
+      },
+    }
+  );
+  const finalResponse = await response.json();
+  console.log(finalResponse);
   res.render("events/create", {
     users,
     isAuthenticated: !!req.session.currentUser,
   });
 });
-router.post(
-  `/create`,
-  isLoggedIn,
-  fileUploader.single("event-image"),
-  (req, res) => {
+router.post(`/create`, isLoggedIn, fileUploader.single("event-image"),  (req, res) => {
     const user = req.session.currentUser._id;
     const img = req.file.path;
-    const { name, description } = req.body;
-    Event.create({ name, description, img, user }).then((data) => {
+    const { name, description, location, date, startTime } = req.body;
+
+    // Parse the date string into a Date object
+    const eventDate = new Date(date);
+    const [hours, minutes] = startTime.split(':').map(Number);
+
+    eventDate.setHours(hours)
+    eventDate.setMinutes(minutes)
+
+
+    // Create a new Date object for time and set hours and minutes
+    const eventTime = new Date(1970, 0, 1); // January 1, 1970
+    // const [hours, minutes] = startTime.split(':').map(Number);
+    // eventTime.setHours(hours);
+    // eventTime.setMinutes(minutes);
+
+    const eventStartTime = new Date(date)
+
+    Event.create({ name, description, location, date: eventDate, startTime: eventStartTime, img, user }).then((data) => {
       res.redirect("/events/");
     });
   }
@@ -81,8 +105,14 @@ router.post(`/:id/delete`, isLoggedIn, (req, res) => {
 router.get(`/edit/:id`, isLoggedIn, (req, res) => {
   Promise.all([Event.findById(req.params.id), User.find()])
   .then(([event, user]) => {
+let date = event.date.toISOString().split('T')[0];
+let time = event.date.toISOString().split('T')[1];
+console.log(date);
+console.log(time);
     res.render(`events/edit-event`, {
       event,
+      date,
+      time,
       user,
       isAuthenticated: !!req.session.currentUser,
     });
@@ -90,10 +120,10 @@ router.get(`/edit/:id`, isLoggedIn, (req, res) => {
 });
 
 router.post(`/:id/edit`, isLoggedIn, (req, res) => {
-  const { name, description } = req.body;
+  const { name, description, location, date, startTime } = req.body;
   Event.findByIdAndUpdate(
     req.params.id,
-    { name, description },
+    { name, description, location, date, startTime },
     { new: true }
   ).then(() => res.redirect(`/events/${req.params.id}`));
 });
