@@ -3,6 +3,9 @@
         <div class="card-body">
             <h1 class="card-title">{{event.name}}</h1>
             <p class="card-text">{{event.description}}</p>
+            <p class="card-text">Location: {{event.location}}</p>
+            <p class="card-text">Date: {{date}}</p>
+            <p class="card-text">Time: {{time}}</p>
             <img src="{{event.img}}" width="500" height="500" class="img-fluid" alt="{{event.name}}">
             <h3 class="mt-3">Created by: <span class="text-light">{{event.user.alias}}</span></h3>
 
