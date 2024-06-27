@@ -37,7 +37,7 @@ router.get('/:id/profile', isLoggedIn, consoleLog, (req, res) => {
     User.findById(req.params.id)
         .then((data) => {
             console.log('User profile: ' + data);
-            res.render("users/user-view", { user: data, isAuthenticated: !!req.session.currentUser });
+            res.render("users/user-view", { event: data, user: data, isAuthenticated: !!req.session.currentUser });
         })
         .catch((err) => console.log(err));
 });
