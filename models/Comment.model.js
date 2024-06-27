@@ -16,7 +16,7 @@ const commentSchema = new Schema(
     event: {
       type: Schema.Types.ObjectId,
       ref: "Event",
-      //required: true
+      required: true
     },
     date: {
       type: Date,
@@ -31,6 +31,9 @@ const commentSchema = new Schema(
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
+  },
+  {
+    strictPopulate: false,
   }
 );
 

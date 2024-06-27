@@ -11,8 +11,33 @@
                     <button type="submit" class="btn btn-danger">Delete Event</button>
                 </form>
                 <a href="/events/edit/{{event._id}}" class="btn btn-warning ml-2">Modify Event</a>
+                <a href="/events/edit-image/{{event._id}}" class="btn btn-dark ml-2">Modify Image</a>
             </div> 
         </div>
+        <form action="/events/{{event._id}}/likes" method="post" class="mt-3">
+        <button type="submit" class="btn btn-primary">
+            Like Event ({{event.likes.length}})
+        </button>
+    </form>
+
+    <form action="/events/{{event._id}}/comment" method="post" class="mt-3">
+        <textarea name="text" placeholder="Write your comment here" class="form-control mb-2"></textarea>
+        <button type="submit" class="btn btn-secondary">Add Comment</button>
+    </form>
+    <h2 class="mt-5">Comments</h2>
+    <ul class="list-unstyled">
+        {{#each event.comments}}
+        <li class="mb-3">
+            <p>{{this.text}}</p>
+            <p>Commented by: <span class="text-light">{{this.user.alias}}</span></p>
+            <form action="/comments/{{this.:id}}/likes" method="post">
+                <button type="submit" class="btn btn-primary">
+                    Like Comment ({{this.likes.length}})
+                </button>
+            </form>
+        </li>
+        {{/each}}
+    </ul>
     </div>
 </div>
 
@@ -24,4 +49,4 @@ danger en rojo,
 warning amarillo, 
 info azul claro y 
 light en gris claro
-lo mismo para los buttons-->
+lo mismo para los buttons--> 
