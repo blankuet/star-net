@@ -125,6 +125,7 @@ console.log(time);
       isAuthenticated: !!req.session.currentUser,
 
     });
+    });
 });
 
 router.post(`/:id/edit`, isLoggedIn, (req, res) => {
