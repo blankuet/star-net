@@ -18,7 +18,7 @@ router.get(`/`, isLoggedIn, (req, res) => {
 
 router.get(`/create`, isLoggedIn, async (req, res) => {
   const users = await User.find();
-  const response = await fetch('https://api.astronomyapi.com/api/v2/bodies/events/:sun',
+  const response = await fetch('https://api.astronomyapi.com/api/v2/bodies/events',
     {
       headers: {
         Authorization: `Basic ${authString}`,
@@ -52,7 +52,7 @@ router.post(`/create`, isLoggedIn, fileUploader.single("event-image"),  (req, re
     // eventTime.setHours(hours);
     // eventTime.setMinutes(minutes);
 
-    const eventStartTime = new Date(date)
+    const eventStartTime = new Date(date) 
 
     Event.create({ name, description, location, date: eventDate, startTime: eventStartTime, img, user }).then((data) => {
       res.redirect("/events/");
@@ -91,8 +91,12 @@ router.get(`/:id`, isLoggedIn, (req, res) => {
   Event.findById(req.params.id)
     .populate(`user`)
     .then((data) => {
+      let date = data.date.toISOString().split('T')[0];
+let time = data.date.toISOString().split('T')[1];
       res.render(`events/event-details`, {
         event: data,
+        date, 
+        time: `${data.date.getHours()}:${data.date.getMinutes()}`,
         isAuthenticated: !!req.session.currentUser,
       });
     });
@@ -121,9 +125,17 @@ console.log(time);
 
 router.post(`/:id/edit`, isLoggedIn, (req, res) => {
   const { name, description, location, date, startTime } = req.body;
+
+  const eventDate = new Date(date);
+  const [hours, minutes] = startTime.split(':').map(Number);
+
+  eventDate.setHours(hours)
+  eventDate.setMinutes(minutes)
+
+
   Event.findByIdAndUpdate(
     req.params.id,
-    { name, description, location, date, startTime },
+    { name, description, location, date: eventDate, startTime: eventDate },
     { new: true }
   ).then(() => res.redirect(`/events/${req.params.id}`));
 });
