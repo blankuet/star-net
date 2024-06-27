@@ -123,7 +123,7 @@ console.log(time);
       time,
       user,
       isAuthenticated: !!req.session.currentUser,
-
+      });
     });
 });
 
