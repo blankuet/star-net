@@ -33,6 +33,7 @@ router.get(`/create`, isLoggedIn, async (req, res) => {
     isAuthenticated: !!req.session.currentUser,
   });
 });
+
 router.post(`/create`, isLoggedIn, fileUploader.single("event-image"),  (req, res) => {
     const user = req.session.currentUser._id;
     const img = req.file.path;
@@ -58,6 +59,7 @@ router.post(`/create`, isLoggedIn, fileUploader.single("event-image"),  (req, re
       res.redirect("/events/");
     });
   }
+
 );
 
 /* all events route */
@@ -90,6 +92,7 @@ router.get(`/view/:id`, isLoggedIn, (req, res) => {
 router.get(`/:id`, isLoggedIn, (req, res) => {
   Event.findById(req.params.id)
     .populate(`user`)
+    .populate({ path: `comments`, populate: { path: `user` } })
     .then((data) => {
       let date = data.date.toISOString().split('T')[0];
 let time = data.date.toISOString().split('T')[1];
@@ -108,6 +111,7 @@ router.post(`/:id/delete`, isLoggedIn, (req, res) => {
 
 router.get(`/edit/:id`, isLoggedIn, (req, res) => {
   Promise.all([Event.findById(req.params.id), User.find()])
+
   .then(([event, user]) => {
 let date = event.date.toISOString().split('T')[0];
 let time = event.date.toISOString().split('T')[1];
@@ -119,8 +123,8 @@ console.log(time);
       time,
       user,
       isAuthenticated: !!req.session.currentUser,
+
     });
-  });
 });
 
 router.post(`/:id/edit`, isLoggedIn, (req, res) => {
@@ -140,13 +144,35 @@ router.post(`/:id/edit`, isLoggedIn, (req, res) => {
   ).then(() => res.redirect(`/events/${req.params.id}`));
 });
 
+//Route to edit image:
+
+router.get(`/edit-image/:id`, isLoggedIn, (req, res) => {
+  Event.findById(req.params.id).then((event) => {
+    res.render(`events/edit-image`, {
+      event,
+      isAuthenticated: !!req.session.currentUser,
+    });
+  });
+});
+
+router.post(`/:id/edit-image`, isLoggedIn, (req, res) => {
+  const { image } = req.body;
+  Event.findByIdAndUpdate(
+    req.params.id,
+    { image },
+    { new: true }
+  ).then(() => res.redirect(`/events/${req.params.id}`
+  ));
+});
+
 //Route to add a comment to an event:
+
 
 router.post(`/:id/comment`, isLoggedIn, (req, res) => {
   const { text } = req.body;
   const userId = req.session.currentUser._id;
   const eventId = req.params.id;
-  Comment.create({ text, User:userId, event: eventId, likes: [] })
+  Comment.create({ text, User: userId, event: eventId, likes: [] })
     .then((comment) => {
       return Event.findByIdAndUpdate(eventId, {
         $push: { comments: comment._id },
@@ -185,34 +211,42 @@ router.post(`/:id/likes`, isLoggedIn, (req, res) => {
       return event.save();
     })
     .then(() => {
-      res.redirect(`/events//view/${eventId}`);
+      res.redirect(`/events/view/${eventId}`);
     });
 });
 
 //Route to like a comment:
 
 router.post(`/comments/:id/likes`, isLoggedIn, (req, res) => {
-  const commentId = req.params._id;
+  const commentId = req.params.id;
   const userId = req.session.currentUser._id;
 
   Comment.findById(commentId)
+    .populate("likes")
     .then((comment) => {
       if (!comment) {
         throw new Error(`Comment not found`);
       }
-      if (!comment.likes.includes(userId)) {
+
+      let isAlreadyLiked = false;
+      comment.likes.forEach((like) => {
+        if (like.equals(userId)) {
+          isAlreadyLiked = true;
+        }
+      });
+      if (!isAlreadyLiked) {
         comment.likes.push(userId);
-        return comment.save();
       } else {
-        comment.likes.pull(userId);
-        return comment.save();
+        const index = comment.likes.indexOf(userId);
+        comment.likes.splice(index, 1);
       }
-      /*res.redirect(`back`)	
-            throw new Error(`Comment already liked by this user`);   (Esto para poner después de else)*/
+      return comment.save();
     })
     .then(() => {
-      res.redirect(`/view/${req.params.id}`);
+      res.redirect(`/events/view/${comment.eventId}`);
     });
 });
+
+
 
 module.exports = router;

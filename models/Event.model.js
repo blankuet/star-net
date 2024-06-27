@@ -6,7 +6,6 @@ const eventSchema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: false,
       trim: true, //Elimina los espacios en blanco al principio y al final
     },
     description: {
@@ -36,7 +35,7 @@ const eventSchema = new Schema(
         type: Schema.Types.ObjectId, ref: "User"
       }
     ],
-    comments: { type: Schema.Types.ObjectId, ref: "Comment" },
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment"}],
     date: {
       type: Date,
       default: Date.now, //Esto es para que la fecha y hora sean las actuales, por defecto
@@ -52,6 +51,9 @@ const eventSchema = new Schema(
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
+  },
+  {
+    strictPopulate: false,
   }
 );
 
