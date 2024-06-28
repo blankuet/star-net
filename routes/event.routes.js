@@ -80,8 +80,12 @@ router.get(`/view/:id`, isLoggedIn, (req, res) => {
     .populate("user")
     .populate({ path: `comments`, populate: { path: `user` } })
     .then((data) => {
+      let date = data.date.toISOString().split('T')[0];
+      let time = data.date.toISOString().split('T')[1];
       res.render(`events/event-view`, {
         event: data,
+        date,
+        time: `${data.date.getHours()}:${data.date.getMinutes()}`,
         isAuthenticated: !!req.session.currentUser,
       });
     });
