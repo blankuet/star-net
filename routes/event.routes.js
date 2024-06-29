@@ -34,31 +34,31 @@ router.get(`/create`, isLoggedIn, async (req, res) => {
   });
 });
 
-router.post(`/create`, isLoggedIn, fileUploader.single("event-image"),  (req, res) => {
-    const user = req.session.currentUser._id;
-    const img = req.file.path;
-    const { name, description, location, date, startTime } = req.body;
+router.post(`/create`, isLoggedIn, fileUploader.single("event-image"), (req, res) => {
+  const user = req.session.currentUser._id;
+  const img = req.file.path;
+  const { name, description, location, date, startTime } = req.body;
 
-    // Parse the date string into a Date object
-    const eventDate = new Date(date);
-    const [hours, minutes] = startTime.split(':').map(Number);
+  // Parse the date string into a Date object
+  const eventDate = new Date(date);
+  const [hours, minutes] = startTime.split(':').map(Number);
 
-    eventDate.setHours(hours)
-    eventDate.setMinutes(minutes)
+  eventDate.setHours(hours)
+  eventDate.setMinutes(minutes)
 
 
-    // Create a new Date object for time and set hours and minutes
-    const eventTime = new Date(1970, 0, 1); // January 1, 1970
-    // const [hours, minutes] = startTime.split(':').map(Number);
-    // eventTime.setHours(hours);
-    // eventTime.setMinutes(minutes);
+  // Create a new Date object for time and set hours and minutes
+  const eventTime = new Date(1970, 0, 1); // January 1, 1970
+  // const [hours, minutes] = startTime.split(':').map(Number);
+  // eventTime.setHours(hours);
+  // eventTime.setMinutes(minutes);
 
-    const eventStartTime = new Date(date) 
+  const eventStartTime = new Date(date)
 
-    Event.create({ name, description, location, date: eventDate, startTime: eventStartTime, img, user }).then((data) => {
-      res.redirect("/events/");
-    });
-  }
+  Event.create({ name, description, location, date: eventDate, startTime: eventStartTime, img, user }).then((data) => {
+    res.redirect("/events/");
+  });
+}
 
 );
 
@@ -95,10 +95,10 @@ router.get(`/:id`, isLoggedIn, (req, res) => {
     .populate({ path: `comments`, populate: { path: `user` } })
     .then((data) => {
       let date = data.date.toISOString().split('T')[0];
-let time = data.date.toISOString().split('T')[1];
+      let time = data.date.toISOString().split('T')[1];
       res.render(`events/event-details`, {
         event: data,
-        date, 
+        date,
         time: `${data.date.getHours()}:${data.date.getMinutes()}`,
         isAuthenticated: !!req.session.currentUser,
       });
@@ -112,21 +112,21 @@ router.post(`/:id/delete`, isLoggedIn, (req, res) => {
 router.get(`/edit/:id`, isLoggedIn, (req, res) => {
   Promise.all([Event.findById(req.params.id), User.find()])
 
-  .then(([event, user]) => {
-let date = event.date.toISOString().split('T')[0];
-let time = event.date.toISOString().split('T')[1];
-console.log(date);
-console.log(time);
-    res.render(`events/edit-event`, {
-      event,
-      date,
-      time,
-      user,
-      isAuthenticated: !!req.session.currentUser,
+    .then(([event, user]) => {
+      let date = event.date.toISOString().split('T')[0];
+      let time = event.date.toISOString().split('T')[1];
+      console.log(date);
+      console.log(time);
+      res.render(`events/edit-event`, {
+        event,
+        date,
+        time,
+        user,
+        isAuthenticated: !!req.session.currentUser,
       });
     });
-    });
 });
+
 
 router.post(`/:id/edit`, isLoggedIn, (req, res) => {
   const { name, description, location, date, startTime } = req.body;
